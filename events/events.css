@@ -1,0 +1,12 @@
+body {
+    background: url(../sign-up/cleveland.jpg);
+    height: 100%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.container {
+    font-family: 'Roboto', sans-serif;
+}
