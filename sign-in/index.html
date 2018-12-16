@@ -15,6 +15,20 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+          apiKey: "AIzaSyChSTXcfaOzPRaMMVnJ_vQhWFWXOa6E_k0",
+          authDomain: "localmeet-7089c.firebaseapp.com",
+          databaseURL: "https://localmeet-7089c.firebaseio.com",
+          projectId: "localmeet-7089c",
+          storageBucket: "localmeet-7089c.appspot.com",
+          messagingSenderId: "795092451007"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../assets/javascript/main.js"></script>
 
     <!-- Custom styles for this template -->
     <link href="signin.css" rel="stylesheet">
@@ -52,7 +66,7 @@
         <label>
           <input type="checkbox" value="remember-me"><p class="text-white">Remember Me</p></label>
       </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      <button id="sign-in" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
     </form>
   </body>
