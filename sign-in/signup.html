@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sign Up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="signin.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+          apiKey: "AIzaSyChSTXcfaOzPRaMMVnJ_vQhWFWXOa6E_k0",
+          authDomain: "localmeet-7089c.firebaseapp.com",
+          databaseURL: "https://localmeet-7089c.firebaseio.com",
+          projectId: "localmeet-7089c",
+          storageBucket: "localmeet-7089c.appspot.com",
+          messagingSenderId: "795092451007"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../assets/javascript/main.js"></script>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Nuevo</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>        
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="carousel/index.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+        <div class="jumbotron jumbotron-fluid bg-primary">
+            <h1 class="display-4 text-center">Sign Up!</h1>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label for="username"><p class="text-white bg-dark">Username</p></label>
+                    <input class="form-control" type="text" id="username" value="sdsfsfsfdsfdsdfds">
+                </div>
+                <div class="form-group">
+                    <label for="email"><p class="text-white bg-dark">Email Address</p></label>
+                    <input type="email" class="form-control" id="email" value="shawnathanmcfly@hotmail.com">
+                </div>
+                <div class="form-group">
+                    <label for="password"><p class="text-white bg-dark">Password</p></label>
+                    <input type="password" class="form-control" id="password" value="dcr43std4ds4xx">
+                </div>
+                <div class="form-group">
+                    <label for="age"><p class="text-white bg-dark">Age</p></label>
+                    <input class="form-control" type="number" id="age" value=13 >
+                </div>
+                <div class="form-group">
+                    <label for="customfile"><p class="text-white bg-dark">Profile PIcture</p></label>
+                    <div class="custom-file">
+                        <label class="custom-file-label" for="customfile">Choose file...</label>
+                        <input type="file" class="custom-file-input" id="customfile" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="bio"><p class="text-white bg-dark">Bio</p></label>
+                    <textarea class="form-control" id="bio" rows="3" value="">ig7tugytuhjutuythuytyuuyjb</textarea>
+                </div>
+                <button id="create-user" type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
