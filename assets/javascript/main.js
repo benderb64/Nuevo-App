@@ -7,7 +7,6 @@ function displayUsers( ){
 
         $('body').append(
             
-            '<div id="user-info" style="display:none"></div>' +
             '<div id="main-content" class="container text-left">' +
                 '<div class="row">' +
                     '<div id="eventTab" class="col-3 border-right border-bottom border-left bg-secondary"> Events </div>' +
@@ -49,7 +48,7 @@ function displayBio( userId ){
                     '<div id="bioTab" class="col-3 border-right bg-light"> Bio </div>' +
                 '</div>' +
                 '<div class="row">' +
-                    '<div class="col-4 bg-light"><img id="user-pic" src="' + snap.val().userPhoto +'" /></div>' +
+                    '<div class="col-4 bg-light"><img id="user-pic" src="' + snap.val().userPhoto +'" width="300"/></div>' +
                     '<div class="col-8 bg-light"><h1>' + snap.val().username +'</h1><h3>Age: ' + snap.val().age + '</h3></div>' +
                 '</div>' +
                 '<div class="row">' +
@@ -140,13 +139,14 @@ window.onload = function(){
 
     $('body').on('click', '#bioTab', () => {
 
-        displayBio();
+        displayBio( firebase.auth().currentUser.uid );
     });
 
-        $('body').on('click', '.user-list' ,(i) => {
+    $('body').on('click', '.user-list' ,(i) => {
             
-            displayBio( i.target.id );
-        });
+        console.log(i);
+        displayBio( i.currentTarget.id );
+    });
 
     
 }
