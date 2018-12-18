@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="json">
+    <title>Events</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="events.css" /> -->
+     <!-- Bootstrap core CSS -->
+    <!-- <link href="../../../../dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://api.eventful.com/js/api"></script>
+      
+      <!-- <script src="main.js"></script> -->
+</head>
+<body >
+        <script>
+                var eventObj;
+                var getEventObj;
+                var ii;
+                var eventObj;
+                var title;
+                var desc;
+                var eNum = 0;
+                            
+                var app_key = "&app_key=hM4NZjM8RPGkXH6B";
+                            
+                // var queryParms = "&page_size=10&page_number=1&location=Cleveland&sort_order=popularity&image_sizes=block100,large,dropshadow250";
+                var queryParms = "&page_size=6&page_number=1&location=Cleveland&sort_order=popularity&image_sizes=blackborder500&t=Next 30 Days";
+                // var queryParms = "&page_size=10&page_number=1&location=Cleveland&sort_order=popularity";
+                            
+                // var queryURL = "http://api.eventful.com/json/events/search?page_size=1&page_number=1&location=Cleveland&app_key=hM4NZjM8RPGkXH6B";
+                var queryURL = "http://api.eventful.com/json/events/search?";
+                            
+                // Creates AJAX call for the specific topic button being clicked
+                var d = new Date();
+                var n = d.getMonth();
+                var months = ['January','February','March','April',
+                                  'May','June','July','August',
+                                  'September','October','November','December'];
+                var now = new Date();
+                var thisMonth = months[now.getMonth()];
+                // queryParms += "&date=" + thisMonth + ",January";
+                queryParms += "&date=" + "March";
+                // console.log("qp= " + queryParms);
+                                              
+                $.ajax({
+                url: queryURL + queryParms + app_key,
+                method: "GET"
+                }).then(function(response) {
+                           
+                    var myObj = JSON.parse(response);
+
+                    console.log(response);
+
+                    });
+
+</script>
+</body>
+</html>
