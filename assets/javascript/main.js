@@ -3,7 +3,7 @@ var uid;
 function displayUsers( ){
 
     $('body').html("");
-    firebase.database().ref().on( 'value', snap => {
+    firebase.database().ref().once( 'value' ).then( snap => {
 
         $('body').append(
             
@@ -17,7 +17,7 @@ function displayUsers( ){
             '</div>'
         );
         $.each( snap.val(), (v, i) => {
-            firebase.database().ref( v ).on( 'value', childSnap => {
+            firebase.database().ref( v ).once( 'value' ).then( childSnap => {
 
                 $('#main-content').append(
                     
@@ -36,7 +36,7 @@ function displayUsers( ){
 function displayBio( userId ){
 
     $('body').html('');
-    firebase.database().ref( userId + "/" ).on( 'value', snap => {
+    firebase.database().ref( userId + "/" ).once( 'value').then( snap => {
 
         $('body').append(
             
