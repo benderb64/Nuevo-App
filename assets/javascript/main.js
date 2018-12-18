@@ -140,13 +140,13 @@ window.onload = function(){
 
     $('body').on('click', '#bioTab', () => {
 
-        displayBio();
+        displayBio( firebase.auth().currentUser.uid );
     });
 
-        $('body').on('click', '.user-list' ,(i) => {
+    $('body').on('click', '.user-list' ,(i) => {
             
-            displayBio( i.target.id );
-        });
+        displayBio( i.target.id );
+    });
 
     
 }
