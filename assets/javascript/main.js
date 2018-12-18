@@ -200,6 +200,16 @@ function signUp( email, user, bio, userPhoto, pass, age ) {
                         isOnline : true
                 
                     });
+
+                    firebase.database().ref( uid + '/messages/' ).on( 'child_changed', data => {
+
+                
+                        if( userViewing ){
+        
+                            $('#msg-window').html( data.val().chat );
+                        }
+                
+                    });
                 }
 
 
