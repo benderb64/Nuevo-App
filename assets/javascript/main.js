@@ -52,7 +52,7 @@ function displayBio( userId ){
                     '<div class="col-8 bg-light"><h1>' + snap.val().username +'</h1><h3>Age: ' + snap.val().age + '</h3></div>' +
                 '</div>' +
                 '<div class="row">' +
-                    '<div class="col-12 bg-light"><p>' + snap.val().bio + '</p><a href="index.html">Nuevo</a></div>' +
+                    '<div class="col-12 bg-light"><p>' + snap.val().bio + '</p><a href="../index.html">Nuevo</a></div>' +
                 '</div>' +
             '</div>'
         );
