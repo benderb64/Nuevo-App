@@ -31,6 +31,7 @@ function displayBio(){
         $('body').append(
             
             '<div class="container">' +
+            '<a href="../index.html">Nuevo</a>' +
                 '<div class="row">' +
                     '<div id="eventTab" class="col-4 border-right border-bottom border-left bg-secondary"> Events </div>' +
                     '<div id="messageTab" class="col-4 border-right border-bottom bg-secondary"> Messages </div>'+
