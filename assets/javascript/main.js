@@ -2,20 +2,31 @@ var uid;
 
 function displayUsers( ){
 
-    /*$('body').html("");*/
-
+    $('body').html("");
     firebase.database().ref().on( 'value', snap => {
 
+        $('body').append(
+            
+            '<div id="user-info" style="display:none"></div>' +
+            '<div id="main-content" class="container text-left">' +
+                '<div class="row">' +
+                    '<div id="eventTab" class="col-3 border-right border-bottom border-left bg-secondary"> Events </div>' +
+                    '<div id="messageTab" class="col-3 border-right border-bottom bg-secondary"> Messages </div>'+
+                    '<div id="userTab" class="col-3 border-right border-bottom bg-light"> Users </div>'+
+                    '<div id="bioTab" class="col-3 border-right bg-secondary"> Bio </div>' +
+                '</div>' +
+            '</div>'
+        );
         $.each( snap.val(), (v, i) => {
-
             firebase.database().ref( v ).on( 'value', childSnap => {
 
-                $('body').append(
+                $('#main-content').append(
                     
-                    "<div style='background-color:gray'>" + childSnap.val().username + 
-                    "<img src='" + childSnap.val().userPhoto + "' />" +
-                    
-                    
+                    "<div class='row'>" + 
+                        "<div id='"+ v +"' class='user-list col-12 bg-light border-bottom'>" + 
+                            "<img src='" + childSnap.val().userPhoto + "' width='80' height='80' />" +
+                            childSnap.val().username + "   Age: " + childSnap.val().age +
+                        "</div>" +
                     "</div>"
                 );
             });
@@ -23,18 +34,19 @@ function displayUsers( ){
     });
 }
 
-function displayBio(){
+function displayBio( userId ){
 
     $('body').html('');
-    firebase.database().ref( uid + "/" ).on( 'value', snap => {
+    firebase.database().ref( userId + "/" ).on( 'value', snap => {
 
         $('body').append(
             
             '<div class="container">' +
                 '<div class="row">' +
-                    '<div id="eventTab" class="col-4 border-right border-bottom border-left bg-secondary"> Events </div>' +
-                    '<div id="messageTab" class="col-4 border-right border-bottom bg-secondary"> Messages </div>'+
-                    '<div id="bioTab" class="col-4 border-right bg-light"> Bio </div>' +
+                    '<div id="eventTab" class="col-3 border-right border-bottom border-left bg-secondary"> Events </div>' +
+                    '<div id="messageTab" class="col-3 border-right border-bottom bg-secondary"> Messages </div>'+
+                    '<div id="userTab" class="col-3 border-right border-bottom bg-secondary"> Users </div>'+
+                    '<div id="bioTab" class="col-3 border-right bg-light"> Bio </div>' +
                 '</div>' +
                 '<div class="row">' +
                     '<div class="col-4 bg-light"><img id="user-pic" src="' + snap.val().userPhoto +'" /></div>' +
@@ -52,12 +64,12 @@ function signUp( email, user, bio, userPhoto, pass, age ) {
 
     let fread = new FileReader(), pData, errorData;
     
-    fread.onload = (e) => { 
+    fread.onload = (e) => {
         
         pData = e.target.result;
     };
     fread.readAsDataURL( userPhoto.files[0] );
-    firebase.auth().createUserWithEmailAndPassword(email, pass).catch( error =>  {
+    firebase.auth().createUserWithEmailAndPassword(email, pass).catch( error => {
         
         errorData = error.code;
         var errorMessage = error.message;
@@ -72,7 +84,7 @@ function signUp( email, user, bio, userPhoto, pass, age ) {
             .then(() => {
                 
                 if( errorData === undefined )
-                    displayBio();
+                    displayBio( uid );
                 
             })
             .catch(error => console.log("Error when creating user data.", error));
@@ -82,7 +94,7 @@ function signUp( email, user, bio, userPhoto, pass, age ) {
 function login( email, pass ){
 
     let errorData;
-    firebase.auth().signInWithEmailAndPassword(email, pass).catch(function(error) {
+    firebase.auth().signInWithEmailAndPassword( email, pass ).catch(function(error) {
         errorData = error.code;
         console.log(error.message);
         
@@ -90,7 +102,6 @@ function login( email, pass ){
 
         if( errorData === undefined ){
             uid = firebase.auth().currentUser.uid;
-            console.log(uid );
 
             firebase.database().ref( uid ).onDisconnect().update({
 
@@ -104,26 +115,38 @@ function login( email, pass ){
         
             });
         }
-
-        displayBio();
+        displayUsers();
     });
 }
 
 window.onload = function(){
 
     $('#create-user').on( "click", () => {
-
         let userImage = document.getElementById("customfile");
         signUp( String( $("#email").val() ), String( $("#username").val() ), 
             String( $("#bio").val() ), userImage, String( $("#password").val() ), $("#age").val() );
     });
 
     $('#sign-in').on( "click", (e) => {
-
         e.preventDefault();
         console.log("im clicked");
         login( String( $("#inputEmail").val() ), String( $("#inputPassword").val() ) );
     });
+
+    $('body').on('click', '#userTab', () => {
+
+        displayUsers();
+    });
+
+    $('body').on('click', '#bioTab', () => {
+
+        displayBio();
+    });
+
+        $('body').on('click', '.user-list' ,(i) => {
+            
+            displayBio( i.target.id );
+        });
 
     
 }
