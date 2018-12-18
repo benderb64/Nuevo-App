@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <link rel="icon" href="../../../../favicon.ico"> -->
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Nuevo - events</title>
+
+    <!-- Bootstrap core CSS -->
+    <!-- <link href="../../../../dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+
+    <script type="text/javascript" src="http://api.eventful.com/js/api"></script>
+
+    <link href="./carousel.css" rel="stylesheet">
+    <style>
+        
+    footer {
+    margin: 0, auto;
+    height: 60px;
+    position: absolute;
+    bottom:0;
+
+}
+    .nav-bar {
+        display: block;
+        overflow: auto;
+        clear: both;
+        margin-bottom: 100px;
+    }
+
+    main {
+        margin-top: 100px;
+    }
+
+    .clearfix::after{
+        content: "";
+        clear:both;
+        display:table;
+    }
+    
+    </style>
+  </head>
+  <body>
+
+    <div class="container"> 
+
+    
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">Nuevo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Sign Up<span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Log In</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Events</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    
+
+    
+
+    <main role="main">
+
+    <!-- <div class="container"> -->
+
+        <!-- START THE events display -->
+
+        <hr class="event-divider">
+
+        <div class="row event">
+          <div class="col-md-7">
+            <!-- <h2 class="event-heading"> <span class="text-muted">It'll blow your mind.</span></h2> -->
+            <h2 class="event-heading"></h2>
+            <p class="event-description"></p>
+          </div>
+          <div class="col-md-5">
+            <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+          </div>
+        </div>
+
+        <h3>   event object  </h3>
+            <div class=display-area></div>
+
+    </main>
+        <!-- FOOTER -->
+      <footer class="container fixed-bottom">
+            <!-- <p class="float-right"><a href="#">Back to top</a></p> -->
+            <p class="float-right"><a href="#">Back to top</a></p>
+            <p>&copy; 2017-2018 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+    </footer>
+        
+
+    </div>
+
+
+
+<script>
+
+var eventObj;
+var getEventObj;
+var ii;
+var eventObj;
+var title;
+var desc;
+var eNum = 0;
+            
+var app_key = "&app_key=hM4NZjM8RPGkXH6B";
+            
+// var queryParms = "&page_size=10&page_number=1&location=Cleveland&sort_order=popularity&image_sizes=block100,large,dropshadow250";
+var queryParms = "&page_size=10&page_number=1&location=Cleveland&sort_order=popularity&image_sizes=blackborder500";
+// var queryParms = "&page_size=10&page_number=1&location=Cleveland&sort_order=popularity";
+            
+// var queryURL = "http://api.eventful.com/json/events/search?page_size=1&page_number=1&location=Cleveland&app_key=hM4NZjM8RPGkXH6B";
+var queryURL = "http://api.eventful.com/json/events/search?";
+            
+// Creates AJAX call for the specific topic button being clicked
+var d = new Date();
+var n = d.getMonth();
+var months = ['January','February','March','April',
+                  'May','June','July','August',
+                  'September','October','November','December'];
+var now = new Date();
+var thisMonth = months[now.getMonth()];
+// queryParms += "&date=" + thisMonth + ",January";
+queryParms += "&date=" + "March";
+// console.log("qp= " + queryParms);
+                              
+$.ajax({
+url: queryURL + queryParms + app_key,
+method: "GET"
+}).then(function(response) {
+           
+    var myObj = JSON.parse(response);
+
+    eventObj = myObj;
+                        
+    for (i=0 ; i < eventObj.events.event.length ; i++ ) {
+        ii=i;
+                        
+    var oArgs = {
+        app_key:"hM4NZjM8RPGkXH6B",
+        id: eventObj.events.event[ii].id,
+        page_size: 25 ,
+        };
+
+eNum = 0;
+
+EVDB.API.call("/events/get", oArgs, function(oData) {
+
+// console.log("show_alert= " + JSON.stringify(oData));
+getEventObj = oData;
+
+console.log("*************  Start of event info  ************");
+console.log("title= " + getEventObj.title);
+console.log("desc= " + getEventObj.description);
+
+console.log("length of image array= " + getEventObj.images.image.length);
+if (Array.isArray(getEventObj.images.image) != false) {
+  // console.log("images= " + JSON.stringify(getEventObj.images));
+  var res = getEventObj.images.image[0].url.replace("small", "large");
+}
+else {
+  var res = getEventObj.images.image.small.url.replace("small", "large");
+  console.log("non array image= "+ res);
+
+}
+console.log("image url= " + res);
+console.log("event number= " + eNum);
+
+$(".display-area").append("<div><h3>" + getEventObj.title + "</h3></div>");
+if ( getEventObj.description != null ){
+$(".display-area").append("<div><p>" + getEventObj.description + "</p></div>");
+} else
+{
+$(".display-area").append("<div><p> No Description Available</p></div>");
+}
+
+// $(".display-area").append("<div><img style='float: right width:100%;height:100%;' src= " + getEventObj.images.image[0].url + "></div>");
+$(".display-area").append("<div><img style='float: right width:100%;height:100%;' src= " + res + "></div>");
+
+eNum += 1;
+      });
+    }
+});
+                    
+                  
+
+                    
+
+// function show_alert()
+
+// {
+
+//   var oArgs = {
+
+//             app_key:"hM4NZjM8RPGkXH6B",
+
+//             id: eventObj.events.event[ii].id,
+
+//             page_size: 25 ,
+
+//   };
+
+//   EVDB.API.call("/events/get", oArgs, function(oData) {
+
+//     // console.log("show_alert= " + JSON.stringify(oData));
+//     getEventObj = oData;
+    
+//     console.log("title= " + title);
+//     console.log("desc= " + desc);
+//     // console.log("length of image array= " + getEventObj.images.image.length);
+//     for (i=0 ; i < getEventObj.images.image.length ; i++){
+//         // console.log("image" + i + " url= " + getEventObj.images.image[i].url);
+//         var res = getEventObj.images.image[0].url.replace("small", "large");
+//         // console.log("large url= " + res);
+//         // console.log("image" + i + " url= " + getEventObj.images.image[i].url);
+//         // console.log("image" + i + " url= " + getEventObj.images.image[i].url);
+//         // console.log("image" + i + " url= " + getEventObj.images.image[i].url);
+//         // console.log("image" + i + " url= " + getEventObj.images.image[i].url);
+//         // console.log("image" + i + " url= " + getEventObj.images.image[i].url);
+//     }
+//     $(".display-area").append("<div><h3>" + getEventObj.title + "</h3></div>");
+//     if ( getEventObj.description != null ){
+//         $(".display-area").append("<div><p>" + getEventObj.description + "</p></div>");
+//     } else
+//     {
+//         $(".display-area").append("<div><p> No Description Available</p></div>");
+//     }
+    
+//     // $(".display-area").append("<div><img style='float: right width:100%;height:100%;' src= " + getEventObj.images.image[0].url + "></div>");
+//     $(".display-area").append("<div><img style='float: right width:100%;height:100%;' src= " + res + "></div>");
+
+//       // Note: this relies on the custom toString() methods below
+
+//     });
+// }
+
+// title = getEventObj.title;
+//     desc = getEventObj.description;
+// console.log("show_alert= " + getEventObj);
+
+</script>
+
+    </body>
+</html>
