@@ -99,10 +99,13 @@ function sendPage( userId ){
             console.log( childSnap.val() );
 
             prevMsg = childSnap.val();
-            $('#msg-window').html(
+
+            if( prevMsg != null ){
+                $('#msg-window').html(
                 
-                prevMsg
-            );
+                    prevMsg
+                );
+            }
         });
         
     });
