@@ -37,37 +37,9 @@ function displayUsers( ){
 
 function sendMsg( userId, myId, msg ){
 
-<<<<<<< HEAD
     $('body').html('');
     firebase.database().ref( userId + "/" ).once( 'value').then( snap => {
     
-=======
-    firebase.database().ref( userId +'/messages/' + myId + '/chat' ).transaction( (curr) => {
-
-        if( curr )
-            return curr + '<p style="color:green">' + msg + '</p>';
-        else 
-            return '<p style="color:green">' + msg + '</p>';
-    });
-
-    firebase.database().ref( myId +'/messages/' + userId + '/chat' ).transaction( (curr) => {
-
-        if( curr )
-            return curr + '<p style="color:red">' + msg + '</p>';
-        else 
-            return '<p style="color:red">' + msg + '</p>';
-    });
-
-}
-
-function sendPage( userId ){
-
-    $('body').html("");
-    userViewing = userId;
-    let prevMsg = "";
-    firebase.database().ref( userId + "/").once( 'value' ).then( snap => {
-
->>>>>>> 98b75ab230069c76a1d3d19e537fd69433bf83d8
         $('body').append(
             
             userPageHead
