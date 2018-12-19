@@ -37,9 +37,31 @@ function displayUsers( ){
 
 function sendMsg( userId, myId, msg ){
 
-    $('body').html('');
-    firebase.database().ref( userId + "/" ).once( 'value').then( snap => {
-    
+    firebase.database().ref( userId +'/messages/' + myId + '/chat' ).transaction( (curr) => {
+
+        if( curr )
+            return curr + '<p style="color:green">' + msg + '</p>';
+        else 
+            return '<p style="color:green">' + msg + '</p>';
+    });
+
+    firebase.database().ref( myId +'/messages/' + userId + '/chat' ).transaction( (curr) => {
+
+        if( curr )
+            return curr + '<p style="color:red">' + msg + '</p>';
+        else 
+            return '<p style="color:red">' + msg + '</p>';
+    });
+
+}
+
+function sendPage( userId ){
+
+    $('body').html("");
+    userViewing = userId;
+    let prevMsg = "";
+    firebase.database().ref( userId + "/").once( 'value' ).then( snap => {
+
         $('body').append(
             
             userPageHead
@@ -107,7 +129,7 @@ function displayBio( userId ){
                     '</div>' +
                 '</div>' +
                 '<div class="row">' +
-                    '<div class="col-12 bg-light"><p>' + snap.val().bio + '</p></div>' +
+                    '<div class="col-12 bg-light"><p>' + snap.val().bio + '</p><a href="../index.html">Nuevo</a></div>' +
                 '</div>' +
             '</div>'
 
