@@ -22,6 +22,12 @@ body {
   background-size: cover;
 }
 
+#main-content {
+
+  color : white;
+  
+}
+
 .form-signin {
   width: 100%;
   max-width: 330px;

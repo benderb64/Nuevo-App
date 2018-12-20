@@ -6,6 +6,12 @@ body {
     background-size: cover;
 }
 
+#main-content {
+
+    color : white;
+    
+}
+
 .container {
     font-family: 'Roboto', sans-serif;
 }

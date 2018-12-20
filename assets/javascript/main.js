@@ -1,6 +1,6 @@
 var uid;
 var userViewing;
-var userPageHead = '<div id="main-content" class="container text-left mt-5">' +
+var userPageHead = '<div id="main-content" class="container text-left mt-5 p-3">' +
                         
                     '</div>';
 
@@ -21,7 +21,7 @@ function displayUsers( ){
                     $('#main-content').append(
                         
                         "<div class='row'>" + 
-                            "<div id='"+ v +"' class='user-list col-12 bg-light border-bottom'>" + 
+                            "<div id='"+ v +"' class='user-list col-12 bg-dark'>" + 
                                 "<img src='" + childSnap.val().userPhoto + "' width='80' height='80' />" +
                                 childSnap.val().username + "   Age: " + childSnap.val().age +
                             "</div>" +
@@ -44,8 +44,6 @@ function sendMsg( userId, myId, msg ){
             temp = '<p style="color:green">' + msg + '</p>';
             
         }
-
-        
 
         return temp;
     });
@@ -94,7 +92,7 @@ function sendPage( userId ){
                 '<div class="row">' +
                     '<div class="col-12 input-group bg-light">' +
                         '<textarea class="form-control" id="chat-window"></textarea>' +
-                        '<span id="send-btn" class="input-group-addon btn">SEND</span>' +
+                        '<span id="send-btn" class="input-group-addon btn btn-secondary">SEND</span>' +
                     '</div>' +
                 '</div>'
         
@@ -128,16 +126,20 @@ function displayBio( userId ){
         $('#main-content').append(
 
             '<div class="row">' +
-                    '<div class="col-4 bg-light"><img id="user-pic" src="' + snap.val().userPhoto +'" width="300"/></div>' +
-                    '<div class="col-8 bg-light"><h1>' + snap.val().username +'</h1><h3>Age: ' + snap.val().age + '</h3>' +
-                        isItMe +
+                    '<div class="col-4 bg-dark"><img id="user-pic" src="' + snap.val().userPhoto +'" width="300"/></div>' +
+                    '<div class="col-8 bg-dark"><h1>' + snap.val().username +'</h1><h3>Age: ' + snap.val().age + '</h3>' + 
                     '</div>' +
                 '</div>' +
                 '<div class="row">' +
-                    '<div class="col-12 bg-light"><p>' + snap.val().bio + '</p><a href="../index.html">Nuevo</a></div>' +
+                    '<div class="col-12 bg-dark"><p>' + snap.val().bio + '</p><a href="../index.html">Nuevo</a></div>' +  
+                '</div>' +
+                '<div class="row">' +
+                    '<div class="col-12 bg-dark">' +
+                        isItMe +
+                    '</div>' +
                 '</div>' +
             '</div>'
-
+            
         );
     });
 }
@@ -158,7 +160,7 @@ function displayMsgs( ){
                 $('#main-content').append(
                     
                     "<div class='row'>" + 
-                        "<div id='"+ v +"' class='msg-list col-12 bg-light border-bottom'>" + 
+                        "<div id='"+ v +"' class='msg-list col-12 bg-dark border-bottom'>" + 
                             "<img src='" + childSnap.val().userPhoto + "' width='80' height='80' />" +
                             childSnap.val().username + "   Age: " + childSnap.val().age +
                         "</div>" +
@@ -171,7 +173,7 @@ function displayMsgs( ){
 
 function signUp( email, user, bio, userPhoto, pass, age ) {
 
-    let fread = new FileReader(), pData, errorData;
+    let fread = new FileReader(), pData, errorData, errorMessage;
     
     fread.onload = (e) => {
         
@@ -181,13 +183,25 @@ function signUp( email, user, bio, userPhoto, pass, age ) {
     firebase.auth().createUserWithEmailAndPassword(email, pass).catch( error => {
         
         errorData = error.code;
-        var errorMessage = error.message;
-        
+        errorMessage = error.message;
+
+        console.log(errorMessage);
+
+        if( errorData === "auth/weak-password" ){
+            $("#error").html("Password is too weak");
+            return;
+        }else if( errorData === "auth/invalid-email" ){
+            $("#error").html("Invalid email");
+            return;
+        }else if( errorData === "auth/email-already-in-use" ){
+            $("#error").html("Email already in use");
+            return;
+        }
         
     }).then( () => {
 
         uid = firebase.auth().currentUser.uid;
-        console.log( pData );
+        
         
         firebase.database().ref( uid ).set( { age : age, username : user, bio : bio, userPhoto : pData, isOnline: true })
             .then(() => {
@@ -219,27 +233,19 @@ function signUp( email, user, bio, userPhoto, pass, age ) {
                         '</li>'
                     );
 
-                    
                     firebase.database().ref( uid + '/messages/' ).on( 'child_added', data => {
-        
-        
                 
                         $('#msg-window').html( data.val().chat );
                         
                     });
         
                     firebase.database().ref( uid + '/messages/' ).on( 'child_changed', data => {
-                
-                
-                        
+    
                         $('#msg-window').html( data.val().chat );
                         
                     });
                     
                 }
-
-                
-                
             })
             .catch(error => console.log("Error when creating user data.", error));
     });   
@@ -250,7 +256,17 @@ function login( email, pass ){
     let errorData;
     firebase.auth().signInWithEmailAndPassword( email, pass ).catch(function(error) {
         errorData = error.code;
-        console.log(error.message);
+        errorMessage = error.message;
+
+        console.log(errorMessage);
+
+        if( errorData === "auth/wrong-password" ){
+            $("#error").html("Wrong password, try again");
+            return;
+        }else if( errorData === "auth/invalid-email" ){
+            $("#error").html("Invalid email");
+            return;
+        }
         
       }).then( ()=> {
 
