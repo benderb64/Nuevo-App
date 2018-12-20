@@ -22,7 +22,7 @@ function displayUsers( ){
                         
                         "<div class='row'>" + 
                             "<div id='"+ v +"' class='user-list col-12 bg-dark'>" + 
-                                "<img src='" + childSnap.val().userPhoto + "' width='80' height='80' />" +
+                                "<img src='" + childSnap.val().userPhoto + "' class='rounded-circle' width='80' height='80' />" +
                                 childSnap.val().username + "   Age: " + childSnap.val().age +
                             "</div>" +
                         "</div>"
@@ -78,7 +78,7 @@ function sendPage( userId ){
 
                 '<div class="row bg-success">' +
                     '<div class="col-6">' +
-                        '<img id="user-pic" src="' + snap.val().userPhoto +'" width="80"/>' +
+                        '<img id="user-pic" class="rounded-circle" src="' + snap.val().userPhoto +'" width="100"/>' +
                     '</div>' +
                     '<div class="col-6">' +
                         '<p>' + snap.val().username + '</p>' +
@@ -126,7 +126,7 @@ function displayBio( userId ){
         $('#main-content').append(
 
             '<div class="row">' +
-                    '<div class="col-4 bg-dark"><img id="user-pic" src="' + snap.val().userPhoto +'" width="300"/></div>' +
+                    '<div class="col-4 bg-dark"><img id="user-pic" class="rounded-circle" src="' + snap.val().userPhoto +'" width="300"/></div>' +
                     '<div class="col-8 bg-dark"><h1>' + snap.val().username +'</h1><h3>Age: ' + snap.val().age + '</h3>' + 
                     '</div>' +
                 '</div>' +
@@ -161,7 +161,7 @@ function displayMsgs( ){
                     
                     "<div class='row'>" + 
                         "<div id='"+ v +"' class='msg-list col-12 bg-dark border-bottom'>" + 
-                            "<img src='" + childSnap.val().userPhoto + "' width='80' height='80' />" +
+                            "<img src='" + childSnap.val().userPhoto + "' class='rounded-circle' width='80' height='80' />" +
                             childSnap.val().username + "   Age: " + childSnap.val().age +
                         "</div>" +
                     "</div>"
@@ -201,7 +201,6 @@ function signUp( email, user, bio, userPhoto, pass, age ) {
     }).then( () => {
 
         uid = firebase.auth().currentUser.uid;
-        
         
         firebase.database().ref( uid ).set( { age : age, username : user, bio : bio, userPhoto : pData, isOnline: true })
             .then(() => {
