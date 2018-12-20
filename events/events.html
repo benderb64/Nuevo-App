@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Events</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="events.css" />
-     <!-- Bootstrap core CSS -->
-    <!-- <link href="../../../../dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" media="screen" href="events.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+     
+    <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://api.eventful.com/js/api"></script>
-      
-      <!-- <script src="main.js"></script> -->
+
+    <script type="text/javascript" src="http://api.eventful.com/js/api"></script>
+    
 </head>
 <body >
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -43,50 +42,58 @@
     <div style="background-color: rgba(0,0,0,0.5)">
         <hr class="featurette-divider">
 
-        <div class="row featurette">
+        <!-- <div class="loader text-center"></div> -->
+        <div class="loading">
+                <div class="loader"></div>
+            </div>
+
+
+        <div class="row featurette pl-5">
             <div class="col-md-7">
               <h2 class="featurette-heading text-white" id="event-heading-0"><span class="text-white"></span></h2>
               <!-- <h2 class="featurette-heading text-white" id="event-heading-1"><span class="text-white"></span></h2> -->
               <p class="lead text-white" id="event-0"></p>
                  <dl class="row">
-                    <dt class="lead text-white col-sm-1">Where:  </dt>
+                    <!-- <dt class="lead text-white col-sm-1">Where:  </dt> -->
+                    <dt class="lead text-white col-sm-1" id="where-0"></dt>
+
                         <dd class="col-sm-5">
                             <p class="lead text-white" id="where00"></p>
                             <p class="lead text-white" id="where10"></p>
                             <p class="lead text-white" id="where20"></p>
                         </dd> 
-                    <dt class="lead text-white col-sm-1">When:  </dt>
+                    <!-- <dt class="lead text-white col-sm-1">When:  </dt> -->
+                    <dt class="lead text-white col-sm-1" id="when-0"></dt>
                         <dd class="col-sm-3">
                             <p class="lead text-white" id="when00"></p>
                             <p class="lead text-white" id="when10"></p>
                             <p class="lead text-white" id="when20"></p>
                         </dd>
                 </dl> 
-                 <!-- </div> -->
-              <!-- <p class="lead text-white" id="where00"></p>
-              <p class="lead text-white" id="where10"></p>
-              <p class="lead text-white" id="where20"></p> -->
+               
             </div>
             <div class="col-md-5">
             <!-- <img class="featurette-image-1 img-fluid mx-auto" data-src="" alt="Generic placeholder image"> -->
-            <img class="featurette-image img-fluid mx-auto" id="event-img-0" src="" alt="Generic placeholder image">
+            <!-- <img class="featurette-image img-fluid mx-auto" id="event-img-0" src="" alt="Generic placeholder image"> -->
+            <img class="featurette-image rounded img-fluid mx-auto" id="event-img-0" src="">
+
             </div>
         </div>
 
         <hr class="featurette-divider">
 
-        <div class="row featurette">
+        <div class="row featurette pl-5">
             <div class="col-md-7 order-md-2">
             <h2 class="featurette-heading text-white" id="event-heading-1"> <span class="text-white"></span></h2>
             <p class="lead text-white" id="event-1"></p>
             <dl class="row">
-                <dt class="lead text-white col-sm-1">Where:  </dt>
+                <dt class="lead text-white col-sm-1" id="where-1"></dt>
                     <dd class="col-sm-5">
                         <p class="lead text-white" id="where01"></p>
                         <p class="lead text-white" id="where11"></p>
                         <p class="lead text-white" id="where21"></p>
                     </dd> 
-                <dt class="lead text-white col-sm-1">When:  </dt>
+                <dt class="lead text-white col-sm-1" id="when-1"></dt>
                     <dd class="col-sm-3">
                         <p class="lead text-white" id="when01"></p>
                         <p class="lead text-white" id="when11"></p>
@@ -96,24 +103,24 @@
             </div>
             <div class="col-md-5 order-md-1">
             <!-- <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image"> -->
-            <img class="featurette-image img-fluid mx-auto" id="event-img-1" alt="Generic placeholder image">
+            <img class="featurette-image rounded-circle img-fluid mx-auto" id="event-img-1">
             </div>
         </div>
 
         <hr class="featurette-divider">
 
-        <div class="row featurette">
+        <div class="row featurette pl-5">
             <div class="col-md-7">
             <h2 class="featurette-heading text-white" id="event-heading-2"><span class="text-white"></span></h2>
             <p class="lead text-white" id="event-2"></p>
             <dl class="row">
-                <dt class="lead text-white col-sm-1">Where:  </dt>
+                <dt class="lead text-white col-sm-1" id="where-2"></dt>
                     <dd class="col-sm-5">
                         <p class="lead text-white" id="where02"></p>
                         <p class="lead text-white" id="where12"></p>
                         <p class="lead text-white" id="where22"></p>
                     </dd> 
-                <dt class="lead text-white col-sm-1">When:  </dt>
+                <dt class="lead text-white col-sm-1" id="when-2"></dt>
                     <dd class="col-sm-3">
                         <p class="lead text-white" id="when02"></p>
                         <p class="lead text-white" id="when12"></p>
@@ -123,24 +130,24 @@
             </div>
             <div class="col-md-5">
             <!-- <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image"> -->
-            <img class="featurette-image img-fluid mx-auto" id="event-img-2" alt="Generic placeholder image">
+            <img class="featurette-image rounded img-fluid mx-auto" id="event-img-2">
             </div>
         </div>
 
         <hr class="featurette-divider">
 
-        <div class="row featurette">
+        <div class="row featurette pl-5">
                 <div class="col-md-7 order-md-2">
                 <h2 class="featurette-heading text-white" id="event-heading-3"><span class="text-white"></span></h2>
                 <p class="lead text-white" id="event-3"></p>
                 <dl class="row">
-                    <dt class="lead text-white col-sm-1">Where:  </dt>
+                    <dt class="lead text-white col-sm-1" id="where-3"></dt>
                         <dd class="col-sm-5">
                             <p class="lead text-white" id="where03"></p>
                             <p class="lead text-white" id="where13"></p>
                             <p class="lead text-white" id="where23"></p>
                         </dd> 
-                    <dt class="lead text-white col-sm-1">When:  </dt>
+                    <dt class="lead text-white col-sm-1" id="when-3"></dt>
                         <dd class="col-sm-3">
                             <p class="lead text-white" id="when03"></p>
                             <p class="lead text-white" id="when13"></p>
@@ -150,24 +157,24 @@
                 </div>
                 <div class="col-md-5 order-md-1">
                 <!-- <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image"> -->
-                <img class="featurette-image img-fluid mx-auto" id="event-img-3" alt="Generic placeholder image">
+                <img class="featurette-image rounded-circle img-fluid mx-auto" id="event-img-3">
                 </div>
             </div>
 
         <hr class="featurette-divider">
 
-        <div class="row featurette">
+        <div class="row featurette pl-5">
             <div class="col-md-7">
             <h2 class="featurette-heading text-white" id="event-heading-4"><span class="text-white"></span></h2>
             <p class="lead text-white" id="event-4"></p>
             <dl class="row">
-                <dt class="lead text-white col-sm-1">Where:  </dt>
+                <dt class="lead text-white col-sm-1" id="where-4"></dt>
                     <dd class="col-sm-5">
                         <p class="lead text-white" id="where04"></p>
                         <p class="lead text-white" id="where14"></p>
                         <p class="lead text-white" id="where24"></p>
                     </dd> 
-                <dt class="lead text-white col-sm-1">When:  </dt>
+                <dt class="lead text-white col-sm-1" id="when-4"></dt>
                     <dd class="col-sm-3">
                         <p class="lead text-white" id="when04"></p>
                         <p class="lead text-white" id="when14"></p>
@@ -176,24 +183,24 @@
             </dl>
             </div>
             <div class="col-md-5">
-            <img class="featurette-image img-fluid mx-auto" id="event-img-4" alt="Generic placeholder image">
+            <img class="featurette-image rounded img-fluid mx-auto" id="event-img-4">
             </div>
         </div>
 
         <hr class="featurette-divider">
 
-        <div class="row featurette">
+        <div class="row featurette pl-5">
                 <div class="col-md-7 order-md-2">
                 <h2 class="featurette-heading text-white" id="event-heading-5"><span class="text-white"></span></h2>
                 <p class="lead text-white" id="event-5"></p>
                 <dl class="row">
-                    <dt class="lead text-white col-sm-1">Where:  </dt>
+                    <dt class="lead text-white col-sm-1" id="where-5"></dt>
                         <dd class="col-sm-5">
                             <p class="lead text-white" id="where05"></p>
                             <p class="lead text-white" id="where15"></p>
                             <p class="lead text-white" id="where25"></p>
                         </dd> 
-                    <dt class="lead text-white col-sm-1">When:  </dt>
+                    <dt class="lead text-white col-sm-1" id="when-5"></dt>
                         <dd class="col-sm-3">
                             <p class="lead text-white" id="when05"></p>
                             <p class="lead text-white" id="when15"></p>
@@ -202,24 +209,24 @@
                 </dl>
                 </div>
                 <div class="col-md-5 order-md-1">
-                <img class="featurette-image img-fluid mx-auto" id="event-img-5" alt="Generic placeholder image">
+                <img class="featurette-image rounded-circle img-fluid mx-auto" id="event-img-5">
                 </div>
             </div>
 
         <hr class="featurette-divider">
 
-        <div class="row featurette">
+        <div class="row featurette pl-5">
             <div class="col-md-7">
             <h2 class="featurette-heading text-white" id="event-heading-6"><span class="text-white"></span></h2>
             <p class="lead text-white" id="event-6"></p>
             <dl class="row">
-                <dt class="lead text-white col-sm-1">Where:  </dt>
+                <dt class="lead text-white col-sm-1" id="where-6"></dt>
                     <dd class="col-sm-5">
                         <p class="lead text-white" id="where06"></p>
                         <p class="lead text-white" id="where16"></p>
                         <p class="lead text-white" id="where26"></p>
                     </dd> 
-                <dt class="lead text-white col-sm-1">When:  </dt>
+                <dt class="lead text-white col-sm-1" id="when-6"></dt>
                     <dd class="col-sm-3">
                         <p class="lead text-white" id="when06"></p>
                         <p class="lead text-white" id="when16"></p>
@@ -228,24 +235,24 @@
             </dl>
             </div>
             <div class="col-md-5">
-            <img class="featurette-image img-fluid mx-auto" id="event-img-6" alt="Generic placeholder image">
+            <img class="featurette-image rounded img-fluid mx-auto" id="event-img-6">
             </div>
         </div>
 
         <hr class="featurette-divider">
 
-        <div class="row featurette">
+        <div class="row featurette pl-5">
                 <div class="col-md-7 order-md-2">
                 <h2 class="featurette-heading text-white" id="event-heading-7"> <span class="text-white"></span></h2>
                 <p class="lead text-white" id="event-7"></p>
                 <dl class="row">
-                    <dt class="lead text-white col-sm-1">Where:  </dt>
+                    <dt class="lead text-white col-sm-1" id="where-7"></dt>
                         <dd class="col-sm-5">
                             <p class="lead text-white" id="where07"></p>
                             <p class="lead text-white" id="where17"></p>
                             <p class="lead text-white" id="where27"></p>
                         </dd> 
-                    <dt class="lead text-white col-sm-1">When:  </dt>
+                    <dt class="lead text-white col-sm-1" id="when-7"></dt>
                         <dd class="col-sm-3">
                             <p class="lead text-white" id="when07"></p>
                             <p class="lead text-white" id="when17"></p>
@@ -254,24 +261,24 @@
                 </dl>
                 </div>
                 <div class="col-md-5 order-md-1">
-                <img class="featurette-image img-fluid mx-auto" id="event-img-7" alt="Generic placeholder image">
+                <img class="featurette-image rounded-circle img-fluid mx-auto" id="event-img-7">
                 </div>
             </div>
 
         <hr class="featurette-divider">
 
-        <div class="row featurette">
+        <div class="row featurette pl-5">
             <div class="col-md-7">
             <h2 class="featurette-heading text-white" id="event-heading-8"><span class="text-white"></span></h2>
             <p class="lead text-white" id="event-8"></p>
             <dl class="row">
-                <dt class="lead text-white col-sm-1">Where:  </dt>
+                <dt class="lead text-white col-sm-1" id="where-8"></dt>
                     <dd class="col-sm-5">
                         <p class="lead text-white" id="where08"></p>
                         <p class="lead text-white" id="where18"></p>
                         <p class="lead text-white" id="where28"></p>
                     </dd> 
-                <dt class="lead text-white col-sm-1">When:  </dt>
+                <dt class="lead text-white col-sm-1" id="when-8"></dt>
                     <dd class="col-sm-3">
                         <p class="lead text-white" id="when08"></p>
                         <p class="lead text-white" id="when18"></p>
@@ -280,24 +287,24 @@
             </dl>
             </div>
             <div class="col-md-5">
-            <img class="featurette-image img-fluid mx-auto" id="event-img-8" alt="Generic placeholder image">
+            <img class="featurette-image rounded img-fluid mx-auto" id="event-img-8">
             </div>
         </div>
 
         <hr class="featurette-divider">
 
-        <div class="row featurette">
+        <div class="row featurette pl-5">
             <div class="col-md-7 order-md-2">
             <h2 class="featurette-heading text-white" id="event-heading-9"><span class="text-white"></span></h2>
             <p class="lead text-white" id="event-9"></p>
             <dl class="row">
-                <dt class="lead text-white col-sm-1">Where:  </dt>
+                <dt class="lead text-white col-sm-1" id="where-9"></dt>
                     <dd class="col-sm-5">
                         <p class="lead text-white" id="where09"></p>
                         <p class="lead text-white" id="where19"></p>
                         <p class="lead text-white" id="where29"></p>
                     </dd> 
-                <dt class="lead text-white col-sm-1">When:  </dt>
+                <dt class="lead text-white col-sm-1" id=when-9></dt>
                     <dd class="col-sm-3">
                         <p class="lead text-white" id="when09"></p>
                         <p class="lead text-white" id="when19"></p>
@@ -306,149 +313,20 @@
             </dl>
             </div>
             <div class="col-md-5 order-md-1">
-            <img class="featurette-image img-fluid mx-auto" id="event-img-9" alt="Generic placeholder image">
+            <img class="featurette-image rounded-circle img-fluid mx-auto" id="event-img-9">
             </div>
         </div>
 
     </div>
+    <footer>
+            <div class="eventful-badge eventful-small">
+                <img src="http://api.eventful.com/images/powered/eventful_58x20.gif"
+                    alt="Local Events, Concerts, Tickets">
+                <p><a href="http://eventful.com/">Events</a> by Eventful</p>
+            </div>
+    </footer>
 
-<script>
-var eventObj;
-var getEventObj;
-var ii;
-var eventObj;
-var title;
-var desc;
-var eNum = 0;
-var imgArray = [];
-
-            
-var app_key = "&app_key=hM4NZjM8RPGkXH6B";
-            
-// var queryParms = "&page_size=10&page_number=1&location=Cleveland&sort_order=popularity&image_sizes=block100,large,dropshadow250";
-var queryParms = "&page_size=10&page_number=1&location=Cleveland&sort_order=popularity&image_sizes=blackborder500&t=Next 30 Days";
-// var queryParms = "&page_size=10&page_number=1&location=Cleveland&sort_order=popularity";
-            
-// var queryURL = "http://api.eventful.com/json/events/search?page_size=1&page_number=1&location=Cleveland&app_key=hM4NZjM8RPGkXH6B";
-var queryURL = "https://api.eventful.com/json/events/search?";
-            
-// Creates AJAX call for the specific topic button being clicked
-var d = new Date();
-var n = d.getMonth();
-var months = ['January','February','March','April',
-                  'May','June','July','August',
-                  'September','October','November','December'];
-var now = new Date();
-// var thisMonth = months[now.getMonth()];
-// var thisMonth = months[now.getMonth()];
-// var thisMonth = getMonth();
-iso = d.toISOString().split("T");
-fd = iso[0].split("-"); 
-nextyy = fd[0];
-intyy = parseInt(nextyy);
-// intyy += 1;
-console.log("nextyy= "+ nextyy);
-if (fd[1] == 12){nextmm="01"; nextyy = intyy+1 } else {nextmm=fd[1];nextyy= fd[0] }
-
-
-dateRange = fd[0] + fd[1] + fd[2] + "00-" + nextyy + nextmm + fd[2] + "00";
-// console.log("iso= "+iso[0] + " "+ iso[1] + isoLast[0]);
-console.log("iso= "+iso);
-console.log("fullDate= " + fd);
-// dateRange = d.getFullYear() + d.getMonth() + d.getDate() + ;
-console.log("dateRange= " + dateRange);
-// queryParms += "&date=" + thisMonth + ",January";
-queryParms += "&date=" + dateRange;
-// console.log("qp= " + queryParms);
-                              
-$.ajax({
-url: queryURL + queryParms + app_key,
-method: "GET"
-}).then(function(response) {
-           
-    var myObj = JSON.parse(response);
-
-    eventObj = myObj;
-                        
-    for (i=0 ; i < eventObj.events.event.length ; i++ ) {
-        ii=i;
-                        
-    var oArgs = {
-        app_key:"hM4NZjM8RPGkXH6B",
-        id: eventObj.events.event[ii].id,
-        page_size: 25 ,
-        };
-
-// eNum = 0;
-
-EVDB.API.call("/events/get", oArgs, function(oData) {
-
-// console.log("show_alert= " + JSON.stringify(oData));
-getEventObj = oData;
-
-console.log("*************  Start of event info  ************");
-console.log("title= " + getEventObj.title);
-console.log("desc= " + getEventObj.description);
-console.log("length of image array= " + getEventObj.images.image.length);
-
-if (Array.isArray(getEventObj.images.image) != false) {
-  console.log("images= " + JSON.stringify(getEventObj));
-  var res = getEventObj.images.image[0].url.replace("small", "large");
-}
-else {
-  var res = getEventObj.images.image.small.url.replace("small", "large");
-  console.log("non array image= "+ res);
-
-}
-
-console.log("image url= " + res);
-console.log("event number= " + eNum);
-
-$("#event-heading-" + eNum).text(getEventObj.title);
-// $(".display-area").append("<div><h3>" + getEventObj.title + "</h3></div>");
-if ( getEventObj.description != null ){
-    $("#event-" + eNum).text(getEventObj.description);
-    // $(".display-area").append("<div><p>" + getEventObj.description + "</p></div>");
-} else
-{
-    $("#event-" + eNum).text("No Description Available");
-    // $(".display-area").append("<div><p> No Description Available</p></div>");
-}
- 
-$("#where0" + eNum).text(getEventObj.venue_name);
-$("#where1" + eNum).append(getEventObj.address);
-$("#where2" + eNum).append(getEventObj.city + "', " + getEventObj.region);
-
-var dt = getEventObj.start_time.split(" ");
-console.log("dt= " + typeof dt[1]);
-console.log(toStandardTime(dt[1]));
-$("#when0" + eNum).append(dt[0]);
-$("#when1" + eNum).append(toStandardTime(dt[1]));
-
-
-// $(".display-area").append("<div><img style='float: right width:100%;height:100%;' src= " + getEventObj.images.image[0].url + "></div>");
-
-$("#event-img-" + eNum).attr("src", res);
-// $(".display-area").append("<div><img style='float: right width:100%;height:100%;' src= " + res + "></div>");
-
-eNum += 1;
-      });
-    }
-});
-
-function toStandardTime(militaryTime) {
-    militaryTime = militaryTime.split(':');
-    return (militaryTime[0].charAt(0) == 1 && militaryTime[0].charAt(1) > 2) ? (militaryTime[0] - 12) + ':' + militaryTime[1] + ':' + militaryTime[2] + ' P.M.' : militaryTime.join(':') + ' A.M.'
-}
-
-
-
-console.log(toStandardTime(' 16:30:00 '));
-
-
-    
-</script>
-
-    
-</body>
+    <script type="text/javascript" src="events.js"></script>
+   
+    </body>
 </html>
