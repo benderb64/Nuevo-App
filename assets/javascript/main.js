@@ -98,9 +98,9 @@ function sendPage( userId ){
         
         );
 
-        firebase.database().ref( uid + '/messages/' + userId + '/chat' ).once('value').then( data => {
+        firebase.database().ref( uid + '/messages/' + userId + '/chat/' ).once('value').then( data => {
 
-            $('#msg-window').html( data.val( ) );
+            $('#msg-window').html( data.val() );
 
         });
     });
@@ -212,14 +212,23 @@ function signUp( email, user, bio, userPhoto, pass, age ) {
                         '</li>'
                     );
 
-                    if( userViewing ){
-                        firebase.database().ref( uid + '/messages/' + userViewing ).on( 'child_changed', data => {
+                    
+                    firebase.database().ref( uid + '/messages/' ).on( 'child_added', data => {
         
         
-                                $('#msg-window').html( data.val().chat );
-                            
-                        });
-                    }
+                
+                        $('#msg-window').html( data.val().chat );
+                        
+                    });
+        
+                    firebase.database().ref( uid + '/messages/' ).on( 'child_changed', data => {
+                
+                
+                        
+                        $('#msg-window').html( data.val().chat );
+                        
+                    });
+                    
                 }
 
                 
@@ -265,14 +274,23 @@ function login( email, pass ){
                 '</li>'
             );
 
-            if( userViewing ){
-                firebase.database().ref( uid + '/messages/' + userViewing ).on( 'child_changed', data => {
+            
+            firebase.database().ref( uid + '/messages/' ).on( 'child_added', data => {
+        
+        
+                
+                $('#msg-window').html( data.val().chat );
+                
+            });
 
-
-                        $('#msg-window').html( data.val().chat );
-                    
-                });
-            }
+            firebase.database().ref( uid + '/messages/' ).on( 'child_changed', data => {
+        
+        
+                
+                $('#msg-window').html( data.val().chat );
+                
+            });
+            
 
             displayUsers();
         }
