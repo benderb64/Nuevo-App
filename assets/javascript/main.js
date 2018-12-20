@@ -1,17 +1,13 @@
 var uid;
 var userViewing;
-var userPageHead = '<div id="main-content" class="container text-left">' +
-                        '<div class="row">' +
-                            '<div id="eventTab" class="col-3 border-right border-bottom border-left bg-secondary"> Events </div>' +
-                            '<div id="messageTab" class="col-3 border-right border-bottom bg-secondary"> Messages </div>'+
-                            '<div id="userTab" class="col-3 border-right border-bottom bg-secondary"> Users </div>'+
-                            '<div id="bioTab" class="col-3 border-right bg-secondary"> Bio </div>' +
-                        '</div>' +
+var userPageHead = '<div id="main-content" class="container text-left mt-5">' +
+                        
                     '</div>';
 
 function displayUsers( ){
 
-    $('body').html("");
+    $('#main-content').remove();
+    
     firebase.database().ref().once( 'value' ).then( snap => {
 
         $('body').append(
@@ -37,29 +33,39 @@ function displayUsers( ){
 
 function sendMsg( userId, myId, msg ){
 
-    firebase.database().ref( userId +'/messages/' + myId + '/chat' ).transaction( (curr) => {
+    let temp;
+    firebase.database().ref( userId +'/messages/' + myId + '/chat' ).transaction( curr => {
 
         if( curr )
-            return curr + '<p style="color:green">' + msg + '</p>';
-        else 
-            return '<p style="color:green">' + msg + '</p>';
+            temp = curr + '<p style="color:green">' + msg + '</p>';
+        else{ 
+            temp = '<p style="color:green">' + msg + '</p>';
+            
+        }
+
+        
+
+        return temp;
     });
 
-    firebase.database().ref( myId +'/messages/' + userId + '/chat' ).transaction( (curr) => {
+    firebase.database().ref( myId +'/messages/' + userId + '/chat' ).transaction( curr => {
 
         if( curr )
-            return curr + '<p style="color:red">' + msg + '</p>';
-        else 
-            return '<p style="color:red">' + msg + '</p>';
+            temp = curr + '<p style="color:red">' + msg + '</p>';
+        else{
+            temp = '<p style="color:red">' + msg + '</p>';
+            
+        }
+
+        return temp;
     });
 
 }
 
 function sendPage( userId ){
 
-    $('body').html("");
+    $('#main-content').remove();
     userViewing = userId;
-    let prevMsg = "";
     firebase.database().ref( userId + "/").once( 'value' ).then( snap => {
 
         $('body').append(
@@ -92,28 +98,18 @@ function sendPage( userId ){
         
         );
 
-        
+        firebase.database().ref( uid + '/messages/' + userId + '/chat' ).once('value').then( data => {
 
-        firebase.database().ref( uid + '/messages/' + userId + '/chat' ).once( 'value' ).then( childSnap => {
+            $('#msg-window').html( data.val( ) );
 
-            console.log( childSnap.val() );
-
-            prevMsg = childSnap.val();
-
-            if( prevMsg != null ){
-                $('#msg-window').html(
-                
-                    prevMsg
-                );
-            }
         });
-        
     });
 }
 
 function displayBio( userId ){
 
-    $('body').html('');
+    $('#main-content').remove();
+    
     userViewing = userId;
     firebase.database().ref( userId + "/" ).once( 'value').then( snap => {
 
@@ -142,7 +138,7 @@ function displayBio( userId ){
 
 function displayMsgs( ){
 
-    $('body').html("");
+    $('#main-content').remove();
     firebase.database().ref( uid + "/messages/").once( 'value' ).then( snap => {
 
         $('body').append(
@@ -204,18 +200,29 @@ function signUp( email, user, bio, userPhoto, pass, age ) {
                 
                     });
 
-                    firebase.database().ref( uid + '/messages/' ).on( 'child_changed', data => {
+                    $('#link-list').prepend(
+                        '<li class="nav-item">' +
+                            '<a id="userTab" href="#"  class="nav-link" >Users<span class="sr-only"></span></a>' +
+                        '</li>' +
+                        '<li class="nav-item">' +
+                            '<a id="messageTab" href="#"  class="nav-link" >Messages<span class="sr-only"></span></a>' +
+                        '</li>' +
+                        '<li class="nav-item">' +
+                            '<a id="bioTab" href="#"  class="nav-link" >Bio<span class="sr-only"></span></a>' +
+                        '</li>'
+                    );
 
-                
-                        if( userViewing ){
+                    if( userViewing ){
+                        firebase.database().ref( uid + '/messages/' + userViewing ).on( 'child_changed', data => {
         
-                            $('#msg-window').html( data.val().chat );
-                        }
-                
-                    });
+        
+                                $('#msg-window').html( data.val().chat );
+                            
+                        });
+                    }
                 }
 
-
+                
                 
             })
             .catch(error => console.log("Error when creating user data.", error));
@@ -246,15 +253,26 @@ function login( email, pass ){
         
             });
 
-            firebase.database().ref( uid + '/messages/' ).on( 'child_changed', data => {
+            $('#link-list').prepend(
+                '<li class="nav-item">' +
+                    '<a id="userTab" href="#"  class="nav-link" >Users<span class="sr-only"></span></a>' +
+                '</li>' +
+                '<li class="nav-item">' +
+                    '<a id="messageTab" href="#"  class="nav-link" >Messages<span class="sr-only"></span></a>' +
+                '</li>' +
+                '<li class="nav-item">' +
+                    '<a id="bioTab" href="#"  class="nav-link" >Bio<span class="sr-only"></span></a>' +
+                '</li>'
+            );
 
-                
-                if( userViewing ){
+            if( userViewing ){
+                firebase.database().ref( uid + '/messages/' + userViewing ).on( 'child_changed', data => {
 
-                    $('#msg-window').html( data.val().chat );
-                }
-        
-            });
+
+                        $('#msg-window').html( data.val().chat );
+                    
+                });
+            }
 
             displayUsers();
         }
