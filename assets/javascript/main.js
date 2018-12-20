@@ -17,15 +17,17 @@ function displayUsers( ){
         $.each( snap.val(), (v, i) => {
             firebase.database().ref( v ).once( 'value' ).then( childSnap => {
 
-                $('#main-content').append(
-                    
-                    "<div class='row'>" + 
-                        "<div id='"+ v +"' class='user-list col-12 bg-light border-bottom'>" + 
-                            "<img src='" + childSnap.val().userPhoto + "' width='80' height='80' />" +
-                            childSnap.val().username + "   Age: " + childSnap.val().age +
-                        "</div>" +
-                    "</div>"
-                );
+                if(childSnap.key != uid ){
+                    $('#main-content').append(
+                        
+                        "<div class='row'>" + 
+                            "<div id='"+ v +"' class='user-list col-12 bg-light border-bottom'>" + 
+                                "<img src='" + childSnap.val().userPhoto + "' width='80' height='80' />" +
+                                childSnap.val().username + "   Age: " + childSnap.val().age +
+                            "</div>" +
+                        "</div>"
+                    );
+                }
             });
         });
     });
@@ -108,6 +110,7 @@ function sendPage( userId ){
 
 function displayBio( userId ){
 
+    let isItMe = "";
     $('#main-content').remove();
     
     userViewing = userId;
@@ -119,12 +122,15 @@ function displayBio( userId ){
                     
         );
 
+        if( userId != uid )
+            isItMe = '<button id="msg-page" type="button" >Send Message</button>';
+
         $('#main-content').append(
 
             '<div class="row">' +
                     '<div class="col-4 bg-light"><img id="user-pic" src="' + snap.val().userPhoto +'" width="300"/></div>' +
                     '<div class="col-8 bg-light"><h1>' + snap.val().username +'</h1><h3>Age: ' + snap.val().age + '</h3>' +
-                        '<button id="msg-page" type="button" >Send Message</button>' +
+                        isItMe +
                     '</div>' +
                 '</div>' +
                 '<div class="row">' +
@@ -148,6 +154,7 @@ function displayMsgs( ){
         $.each( snap.val(), (v, i) => {
             firebase.database().ref( v ).once( 'value' ).then( childSnap => {
 
+                
                 $('#main-content').append(
                     
                     "<div class='row'>" + 
@@ -278,7 +285,6 @@ function login( email, pass ){
             firebase.database().ref( uid + '/messages/' ).on( 'child_added', data => {
         
         
-                
                 $('#msg-window').html( data.val().chat );
                 
             });
